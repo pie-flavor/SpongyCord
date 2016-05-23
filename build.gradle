@@ -1,0 +1,10 @@
+plugins {
+    id 'org.spongepowered.plugin' version '0.5.2'
+}
+
+group 'flavor.pie'
+version '1.0-SNAPSHOT'
+
+dependencies {
+    compile 'org.spongepowered:spongeapi:4.0.3'
+}
