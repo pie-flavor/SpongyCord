@@ -74,7 +74,7 @@ public class Spongee {
             checkChannel();
             checkNotNull(player);
             checkNotNull(server);
-            channel.sendTo(player, buf -> buf.writeString("Connect").writeString(server));
+            channel.sendTo(player, buf -> buf.writeUTF("Connect").writeUTF(server));
         }
 
         /**
@@ -89,7 +89,7 @@ public class Spongee {
             checkNotNull(player);
             checkNotNull(server);
             checkNotNull(reference);
-            channel.sendTo(reference, buf -> buf.writeString("ConnectOther").writeString(player).writeString("server"));
+            channel.sendTo(reference, buf -> buf.writeUTF("ConnectOther").writeUTF(player).writeUTF("server"));
         }
 
         /**
@@ -103,10 +103,10 @@ public class Spongee {
             checkChannel();
             checkNotNull(player);
             checkNotNull(consumer);
-            channel.sendTo(player, buf -> buf.writeString("IP"));
+            channel.sendTo(player, buf -> buf.writeUTF("IP"));
             addListener(
-                    buf -> buf.resetRead().readString().equals("IP"),
-                    buf -> consumer.accept(new InetSocketAddress(buf.readString(), buf.readInteger()))
+                    buf -> buf.resetRead().readUTF().equals("IP"),
+                    buf -> consumer.accept(new InetSocketAddress(buf.readUTF(), buf.readInteger()))
             );
         }
 
@@ -123,9 +123,9 @@ public class Spongee {
             checkNotNull(reference);
             checkNotNull(consumer);
             checkNotNull(server);
-            channel.sendTo(reference, buf -> buf.writeString("PlayerCount").writeString(server));
+            channel.sendTo(reference, buf -> buf.writeUTF("PlayerCount").writeUTF(server));
             addListener(
-                    buf -> buf.resetRead().readString().equals("PlayerCount") && buf.readString().equals(server),
+                    buf -> buf.resetRead().readUTF().equals("PlayerCount") && buf.readUTF().equals(server),
                     buf -> consumer.accept(buf.readInteger())
             );
         }
@@ -153,10 +153,10 @@ public class Spongee {
             checkChannel();
             checkNotNull(server);
             checkNotNull(reference);
-            channel.sendTo(reference, buf->buf.writeString("PlayerList").writeString(server));
+            channel.sendTo(reference, buf->buf.writeUTF("PlayerList").writeUTF(server));
             addListener(
-                    buf -> buf.resetRead().readString().equals("PlayerList") && buf.readString().equals(server),
-                    buf -> consumer.accept(ImmutableList.<String>builder().add(buf.readString().split(", ")).build())
+                    buf -> buf.resetRead().readUTF().equals("PlayerList") && buf.readUTF().equals(server),
+                    buf -> consumer.accept(ImmutableList.<String>builder().add(buf.readUTF().split(", ")).build())
             );
         }
 
@@ -182,10 +182,10 @@ public class Spongee {
             checkChannel();
             checkNotNull(consumer);
             checkNotNull(reference);
-            channel.sendTo(reference, buf -> buf.writeString("GetServers"));
+            channel.sendTo(reference, buf -> buf.writeUTF("GetServers"));
             addListener(
-                    buf -> buf.resetRead().readString().equals("GetServers"),
-                    buf -> consumer.accept(ImmutableList.<String>builder().add(buf.readString().split(", ")).build())
+                    buf -> buf.resetRead().readUTF().equals("GetServers"),
+                    buf -> consumer.accept(ImmutableList.<String>builder().add(buf.readUTF().split(", ")).build())
             );
         }
 
@@ -201,7 +201,7 @@ public class Spongee {
             checkNotNull(reference);
             checkNotNull(message);
             checkNotNull(player);
-            channel.sendTo(reference, buf -> buf.writeString("Message").writeString(player).writeString(TextSerializers.LEGACY_FORMATTING_CODE.serialize(message)));
+            channel.sendTo(reference, buf -> buf.writeUTF("Message").writeUTF(player).writeUTF(TextSerializers.LEGACY_FORMATTING_CODE.serialize(message)));
         }
 
         /**
@@ -215,10 +215,10 @@ public class Spongee {
             checkChannel();
             checkNotNull(consumer);
             checkNotNull(reference);
-            channel.sendTo(reference, buf -> buf.writeString("GetServer"));
+            channel.sendTo(reference, buf -> buf.writeUTF("GetServer"));
             addListener(
-                    buf -> buf.resetRead().readString().equals("GetServer"),
-                    buf -> consumer.accept(buf.readString())
+                    buf -> buf.resetRead().readUTF().equals("GetServer"),
+                    buf -> consumer.accept(buf.readUTF())
             );
         }
 
@@ -237,7 +237,7 @@ public class Spongee {
             checkNotNull(server);
             checkNotNull(reference);
             API.channel.sendTo(reference, buf -> {
-                buf.writeString("Forward").writeString(server).writeString(channel).writeShort((short) message.length);
+                buf.writeUTF("Forward").writeUTF(server).writeUTF(channel).writeShort((short) message.length);
                 for (byte b : message) {
                     buf.writeByte(b);
                 }
@@ -270,7 +270,7 @@ public class Spongee {
             checkNotNull(player);
             checkNotNull(reference);
             API.channel.sendTo(reference, buf -> {
-                buf.writeString("ForwardToPlayer").writeString(player).writeString(channel).writeShort((short) message.length);
+                buf.writeUTF("ForwardToPlayer").writeUTF(player).writeUTF(channel).writeShort((short) message.length);
                 for (byte b : message) {
                     buf.writeByte(b);
                 }
@@ -288,10 +288,10 @@ public class Spongee {
             checkChannel();
             checkNotNull(player);
             checkNotNull(consumer);
-            channel.sendTo(player, buf -> buf.writeString("UUID"));
+            channel.sendTo(player, buf -> buf.writeUTF("UUID"));
             addListener(
-                    buf -> buf.resetRead().readString().equals("UUID"),
-                    buf -> consumer.accept(UUID.fromString(buf.readString()))
+                    buf -> buf.resetRead().readUTF().equals("UUID"),
+                    buf -> consumer.accept(UUID.fromString(buf.readUTF()))
             );
         }
 
@@ -308,10 +308,10 @@ public class Spongee {
             checkNotNull(player);
             checkNotNull(consumer);
             checkNotNull(reference);
-            channel.sendTo(reference, buf -> buf.writeString("UUIDOther").writeString(player));
+            channel.sendTo(reference, buf -> buf.writeUTF("UUIDOther").writeUTF(player));
             addListener(
-                    buf -> buf.resetRead().readString().equals("UUIDOther") && buf.readString().equals(player),
-                    buf -> consumer.accept(UUID.fromString(buf.readString()))
+                    buf -> buf.resetRead().readUTF().equals("UUIDOther") && buf.readUTF().equals(player),
+                    buf -> consumer.accept(UUID.fromString(buf.readUTF()))
             );
         }
 
@@ -326,10 +326,10 @@ public class Spongee {
             checkChannel();
             checkNotNull(consumer);
             checkNotNull(reference);
-            channel.sendTo(reference, buf -> buf.writeString("ServerIP").writeString(server));
+            channel.sendTo(reference, buf -> buf.writeUTF("ServerIP").writeUTF(server));
             addListener(
-                    buf -> buf.resetRead().readString().equals("ServerIP") && buf.readString().equals(server),
-                    buf -> consumer.accept(new InetSocketAddress(buf.readString(), buf.readShort()))
+                    buf -> buf.resetRead().readUTF().equals("ServerIP") && buf.readUTF().equals(server),
+                    buf -> consumer.accept(new InetSocketAddress(buf.readUTF(), buf.readShort()))
             );
         }
         
@@ -345,7 +345,7 @@ public class Spongee {
             checkNotNull(player);
             checkNotNull(reason);
             checkNotNull(reference);
-            channel.sendTo(reference, buf -> buf.writeString("KickPlayer").writeString(player).writeString(TextSerializers.LEGACY_FORMATTING_CODE.serialize(reason)));
+            channel.sendTo(reference, buf -> buf.writeUTF("KickPlayer").writeUTF(player).writeUTF(TextSerializers.LEGACY_FORMATTING_CODE.serialize(reason)));
         }
         private static void addListener(Predicate<ChannelBuf> predicate, Consumer<ChannelBuf> consumer) {
             listener.map.put(predicate, consumer);
