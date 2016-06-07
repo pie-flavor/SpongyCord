@@ -134,7 +134,7 @@ public class Spongee {
          * Gets the number of players connected to the server network.
          * This method depends on an incoming message, so it does not return per se; rather, the {@link IntConsumer} is used as a listener.
          *
-         * @param consumer A consumre which will be called when the player count arrives
+         * @param consumer A consumer which will be called when the player count arrives
          * @param reference Any player
          */
         public static void getGlobalPlayerCount(IntConsumer consumer, Player reference) {
@@ -317,6 +317,7 @@ public class Spongee {
 
         /**
          * Gets the {@link InetSocketAddress} of a server.
+         * This method depends on an incoming message, so it does not return per se; rather, the {@link Consumer} is used as a listener.
          *
          * @param server The server to get it from
          * @param consumer A consumer that will be called when the {@link InetSocketAddress} arrives
