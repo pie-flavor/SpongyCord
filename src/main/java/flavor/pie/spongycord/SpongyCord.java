@@ -1,4 +1,4 @@
-package flavor.pie.spongee;
+package flavor.pie.spongycord;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
@@ -30,12 +30,12 @@ import java.util.function.Predicate;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-@Plugin(id="spongee",name="Spongee",version="1.0.0",authors="pie_flavor",description="A simple wrapper API for Bungee.")
-public class Spongee {
+@Plugin(id="spongycord",name="SpongyCord",version="1.0.0",authors="pie_flavor",description="A simple wrapper API for Bungee.")
+public class SpongyCord {
     @Inject
     Game game;
     Task task;
-    private static Spongee instance;
+    private static SpongyCord instance;
     @Listener
     public void preInit(GamePreInitializationEvent e) {
         instance = this;
@@ -51,7 +51,7 @@ public class Spongee {
     }
 
     /**
-     * The API for Spongee.
+     * The API for SpongyCord.
      *
      * @author pie_flavor (Adam Spofford)
      */
