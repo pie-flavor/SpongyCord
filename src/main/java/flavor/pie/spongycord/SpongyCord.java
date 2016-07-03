@@ -30,7 +30,7 @@ import java.util.function.Predicate;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-@Plugin(id="spongycord",name="SpongyCord",version="1.0.0",authors="pie_flavor",description="A simple wrapper API for Bungee.")
+@Plugin(id="spongycord",name="SpongyCord",version="1.1.0",authors="pie_flavor",description="A simple wrapper API for Bungee.")
 public class SpongyCord {
     @Inject
     Game game;
