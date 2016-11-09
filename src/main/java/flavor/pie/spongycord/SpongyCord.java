@@ -89,7 +89,7 @@ public class SpongyCord {
             checkNotNull(player);
             checkNotNull(server);
             checkNotNull(reference);
-            channel.sendTo(reference, buf -> buf.writeUTF("ConnectOther").writeUTF(player).writeUTF("server"));
+            channel.sendTo(reference, buf -> buf.writeUTF("ConnectOther").writeUTF(player).writeUTF(server));
         }
 
         /**
