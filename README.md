@@ -26,6 +26,7 @@ Yeahh... about that... Because there's still no way of interfacing with Bungee o
 ###How do I use such an awesome and well-made API in my plugin?
 Add this to your build.gradle:
 
+*Gradle*
 ```gradle
 repositories {
     maven {
@@ -37,9 +38,23 @@ dependencies {
     compile "com.github.pie-flavor:SpongyCord:1.1.0"
 }
 ```
-
-Not gonna provide a maven example cuz maven is for nerds.
-
+*Maven*
+```
+    <repositories>
+        <repository>
+            <id>spongycord-repo</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+    
+    <dependencies>
+        <dependency>
+            <groupId>com.github.pie-flavor</groupId>
+            <artifactId>SpongyCord</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+    </dependencies>
+```
 Every method you need is found in `SpongyCord.API`. All method calls will throw exceptions if GameStartingServerEvent hasn't happened yet. 
 
 ##Changelog
