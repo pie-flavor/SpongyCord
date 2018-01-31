@@ -42,7 +42,7 @@ public class SpongyCord {
     }
     @Listener
     public void startingServer(GameStartingServerEvent e) {
-        API.channel = game.getChannelRegistrar().createRawChannel(this, "BungeeCord");
+        API.channel = game.getChannelRegistrar().getOrCreateRaw(this, "BungeeCord");
         API.channel.addListener(Platform.Type.SERVER, API.listener = new API.ChannelListener());
     }
     @Listener
